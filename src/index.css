@@ -11,3 +11,26 @@ body {
   margin: 30px auto;
   text-align: center;
 }
+
+.toDoList {
+  list-style-type: none;
+}
+
+.inlineList * {
+  display: inline-block;
+  margin: 10px;
+}
+
+.done {
+  color: green;
+  font-weight: bold;
+  text-decoration: line-through;
+}
+
+.todo {
+  color: red;
+}
+
+.statusCounter span {
+  margin: 20px;
+}

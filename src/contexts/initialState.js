@@ -1,6 +1,4 @@
-import React from "react";
-
-export const toDos = [
+export const initialState = [
   {
     id: 1,
     title: "Return library books",
@@ -17,9 +15,3 @@ export const toDos = [
     done: false,
   },
 ];
-
-const ToDoContext = React.createContext();
-
-export const ToDoProvider = ToDoContext.Provider;
-
-export default ToDoContext;
