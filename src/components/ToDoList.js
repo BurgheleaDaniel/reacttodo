@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import ToDoContext from "../TodoContext";
 
 const ToDoList = () => {
+  const toDos = useContext(ToDoContext);
+  console.log(toDos);
   return (
     <ul>
-      <li>to do 1</li>
-      <li>to do 2</li>
-      <li>to do 3</li>
-      <li>to do 4</li>
-      <li>to do 5</li>
+      {toDos.map((toDo) => (
+        <li key={toDo.id}>{toDo.title}</li>
+      ))}
     </ul>
   );
 };
