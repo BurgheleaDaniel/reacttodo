@@ -1,14 +1,18 @@
 import React, { createContext, useReducer } from "react";
 import { toDoReducer } from "../reducers/toDoReducer";
-import { initialState } from "./initialState";
+
+const initialState = {
+  todoList: [],
+  status: 0, // 0:loading, 1:success, 2:error
+};
 
 export const ToDoContext = createContext();
 
 const ToDoContextProvider = (props) => {
-  const [toDos, dispatch] = useReducer(toDoReducer, initialState);
+  const [data, dispatch] = useReducer(toDoReducer, initialState);
 
   return (
-    <ToDoContext.Provider value={{ toDos, dispatch }}>
+    <ToDoContext.Provider value={{ data, dispatch }}>
       {props.children}
     </ToDoContext.Provider>
   );

@@ -3,7 +3,7 @@ import { ToDoContext } from "../contexts/TodoContext";
 import actionTypes from "../reducers/actionTypes";
 
 const ToDoList = () => {
-  const { toDos, dispatch } = useContext(ToDoContext);
+  const { data, dispatch } = useContext(ToDoContext);
 
   const removeToDo = (id) => {
     dispatch({ type: actionTypes.REMOVE_TODO, id });
@@ -14,21 +14,24 @@ const ToDoList = () => {
   };
 
   return (
-    <ul className="toDoList">
-      {toDos.map((toDo) => {
-        return (
-          <div key={toDo.id} className="inlineList">
-            <input
-              type="checkbox"
-              checked={toDo.done ? "checked" : ""}
-              onChange={() => toggleToDo(toDo.id)}
-            />
-            <li className={toDo.done ? "done" : "todo"}>{toDo.title}</li>
-            <button onClick={() => removeToDo(toDo.id)}>X</button>
-          </div>
-        );
-      })}
-    </ul>
+    <>
+      {data.status === 0 && <span className="loading">Loading...</span>}
+      <ul className="toDoList">
+        {data.todoList.map((toDo) => {
+          return (
+            <div key={toDo.id} className="inlineList">
+              <input
+                type="checkbox"
+                checked={toDo.completed ? "checked" : ""}
+                onChange={() => toggleToDo(toDo.id)}
+              />
+              <li className={toDo.completed ? "done" : "todo"}>{toDo.title}</li>
+              <button onClick={() => removeToDo(toDo.id)}>X</button>
+            </div>
+          );
+        })}
+      </ul>
+    </>
   );
 };
 

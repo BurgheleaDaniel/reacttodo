@@ -1,28 +1,45 @@
 import actionTypes from "./actionTypes";
 import uuid from "react-native-uuid";
-import { initialState } from "../contexts/initialState";
 
-export const toDoReducer = (state, action) => {
+export const toDoReducer = (prevState, action) => {
   switch (action.type) {
     case actionTypes.ADD_TODO:
-      return [...state, { id: uuid.v4(), title: action.title }];
+      return {
+        ...prevState,
+        todoList: [
+          ...prevState.todoList,
+          { id: uuid.v4(), title: action.title },
+        ],
+      };
 
     case actionTypes.REMOVE_TODO:
-      return state.filter((toDo) => toDo.id !== action.id);
+      return {
+        ...prevState,
+        todoList: prevState.todoList.filter((toDo) => toDo.id !== action.id),
+      };
 
     case actionTypes.TOGGLE_TODO:
-      return state.map((toDo) => {
-        var temp = Object.assign({}, toDo);
-        if (temp.id === action.id) {
-          temp.done = !temp.done;
-        }
-        return temp;
-      });
+      return {
+        ...prevState,
+        todoList: prevState.todoList.map((prevToDo) => {
+          var toDo = {
+            ...prevToDo,
+            completed:
+              prevToDo.id === action.id
+                ? !prevToDo.completed
+                : prevToDo.completed,
+          };
+          return toDo;
+        }),
+      };
 
     case actionTypes.RESET_TODO:
-      return [...initialState];
+      return {};
+
+    case actionTypes.INITIAL_FETCH:
+      return { status: action.data.status, todoList: action.data.todoList };
 
     default:
-      return state;
+      return prevState;
   }
 };

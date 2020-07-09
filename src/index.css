@@ -34,3 +34,7 @@ body {
 .statusCounter span {
   margin: 20px;
 }
+
+.loading {
+  font-size: 30px;
+}
