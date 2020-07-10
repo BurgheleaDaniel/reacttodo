@@ -4,25 +4,30 @@ import ToDoList from "./components/ToDoList";
 import { ToDoContext } from "./contexts/TodoContext";
 import ToDoCounter from "./components/ToDoCounter";
 import ResetState from "./components/ResetState";
-import axios from "axios";
-
+import Axios from "axios";
+import { config } from "./config";
 import actionTypes from "./reducers/actionTypes";
 
 function App() {
-  const { dispatch } = useContext(ToDoContext);
+  const { data, dispatch } = useContext(ToDoContext);
 
-  useEffect(() => {
-    function initialDataFetch(todoList) {
-      dispatch({
-        type: actionTypes.INITIAL_FETCH,
-        data: { status: 1, todoList },
+  const dataFetch = () => {
+    Axios.get(config.API_URL)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.INITIAL_FETCH,
+          data: { status: config.status.success, todoList: response.data },
+        });
+      })
+      .catch(() => {
+        dispatch({
+          type: actionTypes.DISPATCH_ERROR,
+          data: { status: config.status.error },
+        });
       });
-    }
+  };
 
-    axios.get("https://jsonplaceholder.typicode.com/todos").then((response) => {
-      initialDataFetch(response.data);
-    });
-  }, [dispatch]);
+  useEffect(dataFetch, [data.fetchTodo]);
 
   return (
     <div className="container-fluid">

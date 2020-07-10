@@ -34,10 +34,16 @@ export const toDoReducer = (prevState, action) => {
       };
 
     case actionTypes.RESET_TODO:
-      return {};
+      return {
+        ...prevState,
+        fetchTodo: !prevState.fetchTodo,
+      };
 
     case actionTypes.INITIAL_FETCH:
       return { status: action.data.status, todoList: action.data.todoList };
+
+    case actionTypes.DISPATCH_ERROR:
+      return { ...prevState, status: action.data.status };
 
     default:
       return prevState;

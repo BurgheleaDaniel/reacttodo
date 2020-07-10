@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ToDoContext } from "../contexts/TodoContext";
 import actionTypes from "../reducers/actionTypes";
+import { config } from "../config";
 
 const ToDoList = () => {
   const { data, dispatch } = useContext(ToDoContext);
@@ -12,10 +13,14 @@ const ToDoList = () => {
   const toggleToDo = (id) => {
     dispatch({ type: actionTypes.TOGGLE_TODO, id });
   };
-
   return (
     <>
-      {data.status === 0 && <span className="loading">Loading...</span>}
+      {data.status === config.status.loading && (
+        <span className="loading">Loading...</span>
+      )}
+      {data.status === config.status.error && (
+        <span className="loading">Error while loading the items...</span>
+      )}
       <ul className="toDoList">
         {data.todoList.map((toDo) => {
           return (

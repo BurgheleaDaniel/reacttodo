@@ -4,6 +4,7 @@ import { toDoReducer } from "../reducers/toDoReducer";
 const initialState = {
   todoList: [],
   status: 0, // 0:loading, 1:success, 2:error
+  fetchTodo: false,
 };
 
 export const ToDoContext = createContext();

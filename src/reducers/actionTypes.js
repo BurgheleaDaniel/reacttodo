@@ -4,6 +4,7 @@ const actionTypes = {
   TOGGLE_TODO: "TOGGLE_TODO",
   RESET_TODO: "RESET_TODO",
   INITIAL_FETCH: "INITIAL_FETCH",
+  DISPATCH_ERROR: "DISPATCH_ERROR",
 };
 
 export default actionTypes;
